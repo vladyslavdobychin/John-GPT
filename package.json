@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "concurrently \"cd john-javascript && npm run dev\" \"cd john-php && php artisan serve \""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
