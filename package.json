@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "concurrently \"cd john-javascript && npm run dev\" \"cd john-php && php artisan serve \""
+    "start": "concurrently \"cd john-javascript && npm run dev\" \"cd john-php && php artisan serve  --host=127.0.0.1 --port=8001\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
