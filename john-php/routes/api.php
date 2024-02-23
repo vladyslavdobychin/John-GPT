@@ -18,6 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/', function () {
-    return view('hello-world.blade.php');
+Route::get('/hello', function () {
+    return response()->json(['message' => 'Пока по хуй'], 200);
 });
+
