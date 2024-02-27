@@ -1,38 +1,31 @@
-# Use the official PHP image with Apache
-FROM php:8.2-apache
+# Use the official PHP image with PHP-FPM
+FROM php:8.2-fpm
 
-# Set the working directory inside the container
-WORKDIR /var/www/html
-
-# Install additional dependencies required by Laravel
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
     zip \
     unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql \
-    && a2enmod rewrite
+    git \
+    curl
+
+# Install PHP extensions required by Laravel (e.g., PDO for database)
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Get Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www/html
 
 # Copy existing application directory contents
 COPY . /var/www/html
 
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www/html
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html
 
-# Expose port 80
-EXPOSE 80
-
-# Run Composer install to install the dependencies
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Change document root to public directory
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-# Start Apache in the foreground
-CMD ["apache2-foreground"]
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
