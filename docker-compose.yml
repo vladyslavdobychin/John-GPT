@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./john-javascript
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./john-javascript:/app
+    depends_on:
+        - backend
+
+  backend:
+    build:
+      context: ./john-php
+      dockerfile: Dockerfile
+    ports:
+      - '3010:9000'
+    volumes:
+      - ./john-php:/var/www/html
+    depends_on:
+        - db
+    environment:
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+  db:
+    image: mysql:8.0
+    ports:
+      - '3310:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./john-sql-data:/var/lib/mysql
