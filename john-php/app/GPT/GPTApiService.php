@@ -30,7 +30,6 @@ class GPTApiService
             ]],
             'model' => $this->model
         ]);
-
         return $req->json();
     }
 }
