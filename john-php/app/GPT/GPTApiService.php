@@ -23,13 +23,14 @@ class GPTApiService
 
     public function createChat(String $message)
     {
-        $req = $this->request()->post('chat/completions', [
-            'messages' => [[
-                'role' => 'user',
-                'content' => $message
-            ]],
-            'model' => $this->model
-        ]);
+        $req = $this->request()
+            ->post('chat/completions', [
+                'messages' => [[
+                    'role' => 'user',
+                    'content' => $message
+                ]],
+                'model' => $this->model
+            ]);
         return $req->json();
     }
 }
