@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Http;
 class GPTApiService
 {
     private String $model;
+
     public function __construct()
     {
         $this->model = env('GPT_API_MODEL');
