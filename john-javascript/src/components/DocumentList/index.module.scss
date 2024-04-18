@@ -1,0 +1,11 @@
+.documentListItem {
+  cursor: pointer;
+  padding-inline: 5px;
+  border-radius: var(--radius-3);
+  transition: background-color 0.1s;
+
+  &:hover {
+    background-color: var(--gray-5);
+    color: var(--gray-11);
+  }
+}

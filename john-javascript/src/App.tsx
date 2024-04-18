@@ -1,20 +1,11 @@
-import {useEffect, useState} from "react";
-
+import Layout from "./components/Layout";
 
 function App() {
-    const [message, setMessage] = useState('');
-
-    useEffect(() => {
-        fetch('api/hello')
-            .then(response => response.json())
-            .then(data => setMessage(data.message));
-    }, []);
-
-    return (
-    <div>
-        <p>Message from backend: {message}</p>
-    </div>
-  )
+  return (
+    <>
+      <Layout>Content</Layout>
+    </>
+  );
 }
 
-export default App
+export default App;

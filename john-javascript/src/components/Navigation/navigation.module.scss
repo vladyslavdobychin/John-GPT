@@ -1,0 +1,30 @@
+.navigation {
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-width: 150px;
+  max-width: 300px;
+  display: flex;
+  border-right: #e9e9e9 1px solid;
+  flex-direction: row;
+  background-color: var(--gray-3);
+  z-index: 2;
+}
+
+.content {
+  flex: 1;
+  padding: 10px 5px 10px 10px;
+}
+
+.resizer {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 6px;
+  justify-self: flex-end;
+  cursor: col-resize;
+  resize: horizontal;
+}
+
+.resizer:hover {
+  width: 3px;
+  background: #c1c3c5b4;
+}
