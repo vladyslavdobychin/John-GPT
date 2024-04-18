@@ -1,0 +1,15 @@
+.container {
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: blue;
+  min-width: 250px; // default width
+  min-height: 100%;
+  overflow: auto;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}
