@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\GPTApiController;
+use \App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/hello', function () {
-    return response()->json(['message' => 'Пока по хуй'], 200);
-});
-
 Route::get('/chat', [GPTApiController::class, 'createChat']);
 
+Route::resource('notes', NoteController::class)->except(['create', 'edit']);
