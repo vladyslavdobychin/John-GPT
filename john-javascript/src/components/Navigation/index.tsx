@@ -7,11 +7,8 @@ export const Navigation: React.FC = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(250);
+  const [notes, setNotes] = useState([]);  // Initialize notes as an array
 
-  const notes = [
-    { id: "note1", title: "Note 1", content: "Content of Note 1..." },
-    { id: "note2", title: "Note 2", content: "Content of Note 2..." },
-  ];
 
   const startResizing = useCallback(() => {
     setIsResizing(true);
@@ -41,6 +38,23 @@ export const Navigation: React.FC = () => {
       window.removeEventListener("mouseup", stopResizing);
     };
   }, [resize, stopResizing]);
+
+  useEffect(() => {
+    fetch('/api/notes', {
+      headers: {
+        'Accept': 'application/json'  // Ensure the API returns JSON
+      }
+    })
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error('Fetching error:', data.error);
+          } else {
+            setNotes(data);  // Set the fetched notes to state
+          }
+        })
+        .catch(error => console.error('Error fetching notes:', error));
+  }, []);
 
   return (
     <div
