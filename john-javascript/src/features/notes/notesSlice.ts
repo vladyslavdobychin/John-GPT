@@ -1,16 +1,19 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {NotesState} from "../../types.ts";
+import * as notesAPI from "./notesAPI.ts";
 
-
-export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-    const response = await fetch('/api/notes', {
-        headers: {'Accept': 'application/json'}
-    });
-    if (!response.ok) {
-        throw new Error('Failed to fetch notes');
+export const fetchNotes = createAsyncThunk('notes/fetchNotes',
+    async (_, {rejectWithValue}) => {
+        try {
+            return await notesAPI.fetchNotes();
+        } catch (error) {
+            if (error instanceof Error) {
+                return rejectWithValue(error.message);
+            }
+            return rejectWithValue('Failed to fetch notes, unknown error');
+        }
     }
-    return response.json();
-});
+);
 
 const initialState: NotesState = {
     items: [],
