@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Document} from "../../types";
+import {NotesState} from "../../types.ts";
+
 
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
     const response = await fetch('/api/notes', {
@@ -10,15 +11,6 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
     }
     return response.json();
 });
-
-
-
-interface NotesState {
-    items: Document[];
-    status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: string | null;
-    selectedNoteId: number | null,
-}
 
 const initialState: NotesState = {
     items: [],
