@@ -1,13 +1,17 @@
-import React, { useCallback } from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useCallback, useState, useEffect, useRef } from "react";
 import classes from "./navigation.module.scss";
 import { DocumentList } from "../DocumentList";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchNotes } from "../../features/notes/notesSlice.ts";
+import {AppDispatch, RootState} from "../../app/store.ts";
 
 export const Navigation: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const notes = useSelector((state : RootState) => state.notes.items);
+  const noteStatus = useSelector((state : RootState) => state.notes.status);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(250);
-  const [notes, setNotes] = useState([]);  // Initialize notes as an array
 
 
   const startResizing = useCallback(() => {
@@ -40,21 +44,10 @@ export const Navigation: React.FC = () => {
   }, [resize, stopResizing]);
 
   useEffect(() => {
-    fetch('/api/notes', {
-      headers: {
-        'Accept': 'application/json'  // Ensure the API returns JSON
-      }
-    })
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            console.error('Fetching error:', data.error);
-          } else {
-            setNotes(data);  // Set the fetched notes to state
-          }
-        })
-        .catch(error => console.error('Error fetching notes:', error));
-  }, []);
+    if (noteStatus === 'idle') {
+      dispatch(fetchNotes());
+    }
+  }, [noteStatus, dispatch]);
 
   return (
     <div
