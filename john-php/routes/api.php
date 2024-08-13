@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\GPTApiController;
@@ -25,3 +26,4 @@ Route::get('/hello', function () {
 
 Route::get('/chat', [GPTApiController::class, 'createChat']);
 
+Route::resource('/home', NotesController::class);
