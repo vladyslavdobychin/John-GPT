@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class NotesController extends Controller
 {
-    public function __construct(public NotesRepositoryInterface $notesRepository)
-    {
-    }
+    public function __construct(public NotesRepositoryInterface $notesRepository) {}
 
     /**
      * Display a listing of the resource.
