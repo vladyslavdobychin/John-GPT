@@ -35,7 +35,7 @@ class NotesController extends Controller
     public function store(Request $request): JsonResponse
     {
         $note = $request->validate([
-            'title' => 'required|string|max:225',
+            'title' => 'required|string|max:225|unique:notes,title',
             'content' => 'nullable|string'
         ]);
 
