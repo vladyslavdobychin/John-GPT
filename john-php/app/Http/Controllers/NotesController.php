@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Notes\NotesRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NotesController extends Controller
 {
+    public function __construct(public NotesRepositoryInterface $notesRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        Log::info('Index');
+        $notes = $this->notesRepository->getAllNotes();
+        Log::info("Notes: {$notes}");
+        return response()->json($notes);
     }
 
     /**
