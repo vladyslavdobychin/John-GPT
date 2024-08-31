@@ -21,6 +21,15 @@ class NotesController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(string $id): JsonResponse
+    {
+        $note = $this->notesRepository->getNoteById($id);
+        return response()->json($note);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -32,14 +41,6 @@ class NotesController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
     {
         //
     }
