@@ -20,10 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/hello', function () {
-    return response()->json(['message' => 'Пока по хуй'], 200);
-});
-
 Route::get('/chat', [GPTApiController::class, 'createChat']);
 
 Route::resource('/home', NotesController::class);
