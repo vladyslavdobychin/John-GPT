@@ -17,4 +17,9 @@ class NotesRepository implements NotesRepositoryInterface
         return Note::find($id);
     }
 
+    public function createNote($data): Note
+    {
+        return Note::create($data);
+    }
+
 }

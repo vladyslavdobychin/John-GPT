@@ -32,9 +32,16 @@ class NotesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $note = $request->validate([
+            'title' => 'required|string|max:225',
+            'content' => 'nullable|string'
+        ]);
+
+        $newNote = $this->notesRepository->createNote($note);
+
+        return response()->json($newNote, 201);
     }
 
     /**
