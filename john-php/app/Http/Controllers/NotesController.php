@@ -16,9 +16,7 @@ class NotesController extends Controller
      */
     public function index(): JsonResponse
     {
-        Log::info('Index');
         $notes = $this->notesRepository->getAllNotes();
-        Log::info("Notes: {$notes}");
         return response()->json($notes);
     }
 
