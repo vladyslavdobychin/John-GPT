@@ -5,6 +5,7 @@ namespace App\Repositories\Notes;
 use App\Exceptions\NoteNotFoundException;
 use App\Models\Note;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Log;
 
 class NotesRepository implements NotesRepositoryInterface
 {
@@ -21,6 +22,7 @@ class NotesRepository implements NotesRepositoryInterface
         $note = Note::find($id);
 
         if (!$note) {
+            Log::error("Note with id: $id not found");
             throw new NoteNotFoundException($id);
         }
 
