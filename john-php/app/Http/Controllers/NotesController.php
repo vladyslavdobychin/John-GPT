@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NoteNotFoundException;
 use App\Repositories\Notes\NotesRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -9,7 +10,9 @@ use Illuminate\Support\Facades\Log;
 
 class NotesController extends Controller
 {
-    public function __construct(public NotesRepositoryInterface $notesRepository) {}
+    public function __construct(public NotesRepositoryInterface $notesRepository)
+    {
+    }
 
     /**
      * Display a listing of the resource.
@@ -47,7 +50,7 @@ class NotesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, string $id): JsonResponse
     {
         $data = $request->validate([
             'title' => 'required|string|max:225|unique:notes,title,' . $id,
@@ -62,8 +65,16 @@ class NotesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id): JsonResponse
     {
-        //
+        try {
+            $this->notesRepository->deleteNote($id);
+
+            return response()->json([
+                'message' => 'Note deleted successfully'
+            ], 200);
+        } catch(NoteNotFoundException $e) {
+            return $e->render();
+        }
     }
 }

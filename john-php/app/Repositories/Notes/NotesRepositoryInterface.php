@@ -14,4 +14,6 @@ interface NotesRepositoryInterface {
     public function createNote($data) : Note;
 
     public function updateNote($id, $data): Note;
+
+    public function deleteNote($id): void;
 }

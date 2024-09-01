@@ -18,7 +18,7 @@ class NoteNotFoundException extends Exception
         $this->message = "Note with id: $noteId not found";
     }
 
-    public function render($request): JsonResponse
+    public function render(): JsonResponse
     {
         return response()->json([
             'error' => $this->message

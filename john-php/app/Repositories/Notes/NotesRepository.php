@@ -44,4 +44,14 @@ class NotesRepository implements NotesRepositoryInterface
         return $note;
     }
 
+    /**
+     * @throws NoteNotFoundException
+     */
+    public function deleteNote($id): void
+    {
+       $note = $this->getNoteById($id);
+
+       $note->delete();
+    }
+
 }
