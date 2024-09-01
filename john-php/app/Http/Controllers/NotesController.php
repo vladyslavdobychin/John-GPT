@@ -34,22 +34,31 @@ class NotesController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $note = $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:225|unique:notes,title',
             'content' => 'nullable|string'
         ]);
 
-        $newNote = $this->notesRepository->createNote($note);
+        $note = $this->notesRepository->createNote($data);
 
-        return response()->json($newNote, 201);
+        return response()->json($note, 201);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id): JsonResponse
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:225|unique:notes,title,' . $id,
+            'content' => 'nullable|string'
+        ]);
+
+        Log::info('validation passed');
+
+        $updatedNote = $this->notesRepository->updateNote($id, $data);
+
+        return response()->json($updatedNote);
     }
 
     /**
