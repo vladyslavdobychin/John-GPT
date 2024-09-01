@@ -54,8 +54,6 @@ class NotesController extends Controller
             'content' => 'nullable|string'
         ]);
 
-        Log::info('validation passed');
-
         $updatedNote = $this->notesRepository->updateNote($id, $data);
 
         return response()->json($updatedNote);
