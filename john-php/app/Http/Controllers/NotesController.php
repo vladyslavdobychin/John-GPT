@@ -71,7 +71,7 @@ class NotesController extends Controller
             $this->notesRepository->deleteNote($id);
 
             return response()->json([
-                'message' => 'Note deleted successfully'
+                'message' => "Note with id: $id deleted successfully"
             ], 200);
         } catch(NoteNotFoundException $e) {
             return $e->render();
