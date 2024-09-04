@@ -1,12 +1,15 @@
 import React, {useCallback} from "react";
 import {useState, useEffect, useRef} from "react";
 import classes from "./navigation.module.scss";
-// import {DocumentList} from "../DocumentList";
+import {DocumentList} from "../DocumentList";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store/store.ts";
 
 export const Navigation: React.FC = () => {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
+    const notes = useSelector((state: RootState) => state.notes.items)
 
     const startResizing = useCallback(() => {
         setIsResizing(true);
@@ -45,7 +48,7 @@ export const Navigation: React.FC = () => {
             onMouseDown={(e) => e.preventDefault()}
         >
             <div className={classes.content}>
-                {/*<DocumentList documents={}/>*/}
+                <DocumentList documents={notes}/>
             </div>
             <div className={classes.resizer} onMouseDown={startResizing}/>
         </div>

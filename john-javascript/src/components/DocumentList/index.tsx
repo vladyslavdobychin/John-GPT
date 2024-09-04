@@ -1,3 +1,4 @@
+import React from "react";
 import { Flex } from "@radix-ui/themes";
 import { Document } from "../../types";
 import { DocumentListItem } from "./components/document-list-item";
@@ -12,7 +13,7 @@ export const DocumentList: React.FC<DocumentListItemProps> = ({
   return (
     <Flex direction="column" gap="1">
       {documents.map((document) => (
-        <DocumentListItem {...document} />
+        <DocumentListItem {...document} key={document.id}/>
       ))}
     </Flex>
   );
