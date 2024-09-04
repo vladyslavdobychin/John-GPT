@@ -1,27 +1,12 @@
 import React, {useCallback} from "react";
 import {useState, useEffect, useRef} from "react";
 import classes from "./navigation.module.scss";
-import {DocumentList} from "../DocumentList";
-import axios from "axios";
+// import {DocumentList} from "../DocumentList";
 
 export const Navigation: React.FC = () => {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
-    const [notes, setNotes] = useState([]);
-
-    const fetchNotes = async () => {
-        try {
-            const response = await axios.get("/api/home");
-            setNotes(response.data);
-        } catch (error) {
-            console.error("Failed to fetch notes:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchNotes();
-    }, []);
 
     const startResizing = useCallback(() => {
         setIsResizing(true);
@@ -60,7 +45,7 @@ export const Navigation: React.FC = () => {
             onMouseDown={(e) => e.preventDefault()}
         >
             <div className={classes.content}>
-                <DocumentList documents={notes}/>
+                {/*<DocumentList documents={}/>*/}
             </div>
             <div className={classes.resizer} onMouseDown={startResizing}/>
         </div>
