@@ -20,6 +20,16 @@ class NotesRepository implements NotesRepositoryInterface
      */
     public function getNoteById($id): NoteDTO
     {
+        $note = $this->getNoteModel($id);
+
+        return NoteDTO::mapNote($note);
+    }
+
+    /**
+     * @throws NoteNotFoundException
+     */
+    private function getNoteModel($id): Note
+    {
         $note = Note::find($id);
 
         if (!$note) {
@@ -27,7 +37,7 @@ class NotesRepository implements NotesRepositoryInterface
             throw new NoteNotFoundException($id);
         }
 
-        return NoteDTO::mapNote($note);
+        return $note;
     }
 
     public function createNote($data): NoteDTO
@@ -41,7 +51,7 @@ class NotesRepository implements NotesRepositoryInterface
      */
     public function updateNote($id, $data): NoteDTO
     {
-        $note = $this->getNoteById($id);
+        $note = $this->getNoteModel($id);
 
         $note->update($data);
 
@@ -53,7 +63,7 @@ class NotesRepository implements NotesRepositoryInterface
      */
     public function deleteNote($id): void
     {
-       $note = $this->getNoteById($id);
+       $note = $this->getNoteModel($id);
 
        $note->delete();
     }
