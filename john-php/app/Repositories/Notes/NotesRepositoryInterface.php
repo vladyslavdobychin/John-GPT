@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface NotesRepositoryInterface {
 
-    public function getAllNotes() : Collection;
+    public function getAllNotes() : array;
 
     public function getNoteById($id) : NoteDTO;
 

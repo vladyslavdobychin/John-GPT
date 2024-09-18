@@ -2,6 +2,7 @@
 
  namespace App\DTO;
 use App\Models\Note;
+use Illuminate\Support\Collection;
 
 class NoteDTO
 {
@@ -22,5 +23,10 @@ class NoteDTO
             created_at: $note->created_at ? $note->created_at->format('M d, Y H:i:s') : null,
             updated_at: $note->updated_at ? $note->created_at->format('M d, Y H:i:s') : null,
         );
+    }
+
+    public static function mapCollection(Collection $notes): array
+    {
+        return $notes->map(fn($note) => self::mapNote($note))->toArray();
     }
 }

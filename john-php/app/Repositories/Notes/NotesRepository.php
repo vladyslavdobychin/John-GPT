@@ -4,15 +4,15 @@ namespace App\Repositories\Notes;
 
 use App\Exceptions\NoteNotFoundException;
 use App\Models\Note;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use App\DTO\NoteDTO;
 
 class NotesRepository implements NotesRepositoryInterface
 {
-    public function getAllNotes(): Collection
+    public function getAllNotes(): array
     {
-        return Note::all();
+        $notes = Note::all();
+        return NoteDTO::mapCollection($notes);
     }
 
     /**
