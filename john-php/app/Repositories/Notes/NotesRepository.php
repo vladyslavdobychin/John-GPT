@@ -6,6 +6,7 @@ use App\Exceptions\NoteNotFoundException;
 use App\Models\Note;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
+use App\DTO\NoteDTO;
 
 class NotesRepository implements NotesRepositoryInterface
 {
@@ -17,7 +18,7 @@ class NotesRepository implements NotesRepositoryInterface
     /**
      * @throws NoteNotFoundException
      */
-    public function getNoteById($id): Note
+    public function getNoteById($id): NoteDTO
     {
         $note = Note::find($id);
 
@@ -26,24 +27,25 @@ class NotesRepository implements NotesRepositoryInterface
             throw new NoteNotFoundException($id);
         }
 
-        return $note;
+        return NoteDTO::mapNote($note);
     }
 
-    public function createNote($data): Note
+    public function createNote($data): NoteDTO
     {
-        return Note::create($data);
+        $note = Note::create($data);
+        return NoteDTO::mapNote($note);
     }
 
     /**
      * @throws NoteNotFoundException
      */
-    public function updateNote($id, $data): Note
+    public function updateNote($id, $data): NoteDTO
     {
         $note = $this->getNoteById($id);
 
         $note->update($data);
 
-        return $note;
+        return NoteDTO::mapNote($note);
     }
 
     /**

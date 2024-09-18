@@ -2,18 +2,18 @@
 
 namespace App\Repositories\Notes;
 
-use App\Models\Note;
+use App\DTO\NoteDTO;
 use Illuminate\Database\Eloquent\Collection;
 
 interface NotesRepositoryInterface {
 
     public function getAllNotes() : Collection;
 
-    public function getNoteById($id) : Note;
+    public function getNoteById($id) : NoteDTO;
 
-    public function createNote($data) : Note;
+    public function createNote($data) : NoteDTO;
 
-    public function updateNote($id, $data): Note;
+    public function updateNote($id, $data): NoteDTO;
 
     public function deleteNote($id): void;
 }
