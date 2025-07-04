@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Repositories\Notes\NotesRepository;
-use App\Repositories\Notes\NotesRepositoryInterface;
+use App\Models\Document;
+use App\Repositories\DocumentRepository;
+use App\Repositories\DocumentRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(NotesRepositoryInterface::class, NotesRepository::class);
+        $this->app->bind(DocumentRepositoryInterface::class, DocumentRepository::class);
+        $this->app->bind(DocumentRepository::class, function ($app) {
+            return new DocumentRepository(new Document());
+        });
     }
 
     /**
