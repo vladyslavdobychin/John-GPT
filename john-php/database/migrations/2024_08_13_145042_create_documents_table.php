@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('notes', function (Blueprint $table) {
-            $table->mediumText('content')->change();
+        Schema::create('documents', function (Blueprint $table) {
+            $table->id();
+            $table->string('title', 255)->unique();
+            $table->mediumText('content')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('notes', function (Blueprint $table) {
-            $table->string('content')->nullable()->change();
-        });
+        Schema::dropIfExists('documents');
     }
 };

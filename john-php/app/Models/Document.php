@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static findOrFail($id)
  */
 
-class Note extends Model
+class Document extends Model
 {
     use HasFactory;
     use SoftDeletes;
