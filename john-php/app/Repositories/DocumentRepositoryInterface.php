@@ -8,4 +8,5 @@ interface DocumentRepositoryInterface
 {
     public function findById(int $id): ?Document;
 
+    public function createDocument(array $data): Document;
 }

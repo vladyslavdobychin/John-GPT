@@ -15,4 +15,12 @@ class DocumentRepository implements DocumentRepositoryInterface
     {
         return $this->model->newModelQuery()->find($id);
     }
+
+    public function createDocument(array $data): Document
+    {
+        $document = new Document($data);
+        $document->save();
+
+        return $document;
+    }
 }

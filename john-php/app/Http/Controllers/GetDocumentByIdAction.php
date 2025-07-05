@@ -17,7 +17,7 @@ class GetDocumentByIdAction extends Controller
         $document = $this->repository->findById($id);
 
         if (!$document) {
-            return response()->json(['error' => 'Document not found'], 404);
+            return new JsonResponse(null, 404);
         }
 
         return new JsonResponse(new DocumentResource($document));
