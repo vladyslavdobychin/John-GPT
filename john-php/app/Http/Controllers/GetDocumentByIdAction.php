@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Document;
+use App\Http\Resources\DocumentResource;
 use App\Repositories\DocumentRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
@@ -20,6 +20,6 @@ class GetDocumentByIdAction extends Controller
             return response()->json(['error' => 'Document not found'], 404);
         }
 
-        return new JsonResponse($document);
+        return new JsonResponse(new DocumentResource($document));
     }
 }
