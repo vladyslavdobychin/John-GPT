@@ -23,8 +23,8 @@ class CreateDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'content' => ['nullable', 'text']
+            'title' => ['required', 'string', 'max:255', 'unique:documents,title'],
+            'content' => ['nullable', 'string']
         ];
     }
 }

@@ -18,9 +18,6 @@ class DocumentRepository implements DocumentRepositoryInterface
 
     public function createDocument(array $data): Document
     {
-        $document = new Document($data);
-        $document->save();
-
-        return $document;
+        return $this->model->create($data);
     }
 }

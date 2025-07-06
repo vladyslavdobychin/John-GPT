@@ -15,7 +15,8 @@ class CreateDocumentAction extends Controller
 
     public function __invoke(CreateDocumentRequest $request): JsonResponse
     {
-        $document = $this->repository->createDocument($request->validated());
+        $data = $request->validated();
+        $document = $this->repository->createDocument($data);
 
         return new JsonResponse($document, Response::HTTP_CREATED);
     }
