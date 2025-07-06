@@ -20,7 +20,7 @@ class DeleteDocumentAction extends Controller
             return new JsonResponse(null, Response::HTTP_NO_CONTENT);
         } catch (ModelNotFoundException $e) {
             return new JsonResponse(
-                ['message' => 'Document not found'],
+                ['message' => sprintf('Document with id %d not found', $id)],
                 Response::HTTP_NOT_FOUND
             );
         }
