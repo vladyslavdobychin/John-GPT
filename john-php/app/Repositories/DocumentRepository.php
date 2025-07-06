@@ -3,12 +3,17 @@
 namespace App\Repositories;
 
 use App\Models\Document;
-use Illuminate\Database\Eloquent\Builder;
+use \Illuminate\Database\Eloquent\Collection;
 
 class DocumentRepository implements DocumentRepositoryInterface
 {
     public function __construct(private Document $model)
     {
+    }
+
+    public function findAll(): Collection
+    {
+        return $this->model->newModelQuery()->get();
     }
 
     public function findById(int $id): ?Document
