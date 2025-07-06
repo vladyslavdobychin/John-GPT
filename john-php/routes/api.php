@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\CreateDocumentAction;
-use App\Http\Controllers\GetDocumentByIdAction;
-use App\Http\Controllers\UpdateDocumentAction;
+use App\Http\Controllers\{DeleteDocumentAction, UpdateDocumentAction, GetDocumentByIdAction, CreateDocumentAction};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +12,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('documents', [CreateDocumentAction::class, '__invoke']);
 Route::get('documents/{id}', [GetDocumentByIdAction::class, '__invoke']);
 Route::put('documents/{id}', [UpdateDocumentAction::class, '__invoke']);
+Route::delete('documents/{id}', [DeleteDocumentAction::class, '__invoke']);

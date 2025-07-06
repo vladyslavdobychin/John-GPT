@@ -11,4 +11,6 @@ interface DocumentRepositoryInterface
     public function createDocument(array $data): Document;
 
     public function updateDocument(int $id, array $data): Document;
+
+    public function deleteDocument(int $id): void;
 }
