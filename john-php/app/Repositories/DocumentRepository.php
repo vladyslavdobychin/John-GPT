@@ -20,4 +20,12 @@ class DocumentRepository implements DocumentRepositoryInterface
     {
         return $this->model->create($data);
     }
+
+    public function updateDocument(int $id, array $data): Document
+    {
+        $document = $this->model->newModelQuery()->findOrFail($id);
+        $document->update($data);
+
+        return $document;
+    }
 }

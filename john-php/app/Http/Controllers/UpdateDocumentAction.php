@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateDocumentRequest;
 use App\Http\Resources\DocumentResource;
 use App\Repositories\DocumentRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 
-class GetDocumentByIdAction extends Controller
+class UpdateDocumentAction extends Controller
 {
     public function __construct(private DocumentRepositoryInterface $repository)
     {
     }
 
-    public function __invoke(int $id): JsonResponse
+    public function __invoke(int $id, UpdateDocumentRequest $request): JsonResponse
     {
-        $document = $this->repository->findById($id);
-
-        if (!$document) {
-            return new JsonResponse(null, 404);
-        }
+        $data = $request->validated();
+        $document = $this->repository->updateDocument($id, $data);
 
         return new JsonResponse(new DocumentResource($document));
     }
