@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateDocumentRequest;
+use App\Http\Resources\DocumentResource;
 use App\Repositories\DocumentRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,9 @@ class CreateDocumentAction extends Controller
         $data = $request->validated();
         $document = $this->repository->createDocument($data);
 
-        return new JsonResponse($document, Response::HTTP_CREATED);
+        return new JsonResponse(
+            new DocumentResource($document),
+            Response::HTTP_CREATED
+        );
     }
 }
