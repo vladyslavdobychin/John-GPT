@@ -2,3 +2,4 @@ node_modules
 .env
 john-sql-data
 .idea
+.DS_Store
