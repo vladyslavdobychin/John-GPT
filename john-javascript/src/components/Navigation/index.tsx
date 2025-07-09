@@ -3,6 +3,7 @@ import {useState, useEffect, useRef} from "react";
 import classes from "./navigation.module.scss";
 import {DocumentList} from "../DocumentList";
 import axios from "axios";
+import { Box } from "@radix-ui/themes";
 import { Document } from "../../types";
 
 export const Navigation: React.FC = () => {
@@ -15,7 +16,7 @@ export const Navigation: React.FC = () => {
         try {
             const response = await axios.get<Document[]>("/api/documents");
             if (Array.isArray(response.data)) {
-            setNotes(response.data);
+                setNotes(response.data);
             }
         } catch (error) {
             console.error("Failed to fetch notes:", error);
@@ -62,10 +63,10 @@ export const Navigation: React.FC = () => {
             style={{width: sidebarWidth}}
             onMouseDown={(e) => e.preventDefault()}
         >
-            <div className={classes.content}>
+            <Box className={classes.content}>
                 <DocumentList documents={notes}/>
-            </div>
-            <div className={classes.resizer} onMouseDown={startResizing}/>
+            </Box>
+            <Box className={classes.resizer} onMouseDown={startResizing}/>
         </div>
     );
 };

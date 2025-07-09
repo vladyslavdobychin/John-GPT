@@ -11,8 +11,10 @@
 }
 
 .content {
+  box-sizing: border-box;
   flex: 1;
   padding: 10px 5px 10px 10px;
+  max-width: 100%;
 }
 
 .resizer {
