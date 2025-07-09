@@ -12,7 +12,7 @@ export const DocumentList: React.FC<DocumentListItemProps> = ({
   return (
     <Flex direction="column" gap="1">
       {documents.map((document) => (
-        <DocumentListItem {...document} />
+        <DocumentListItem {...document} key={document.id} />
       ))}
     </Flex>
   );
