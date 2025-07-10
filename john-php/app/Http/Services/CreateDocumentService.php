@@ -24,7 +24,7 @@ class CreateDocumentService
             throw new Exception('Document title already exists');
         }
 
-        $document = new Document(
+        $document = Document::create(
             $title,
             $content
         );

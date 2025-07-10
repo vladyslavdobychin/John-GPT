@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @method static find($id)
- * @method static create($data)
  * @method static findOrFail($id)
  */
 
@@ -25,12 +24,12 @@ class Document extends Model
     private DocumentTitle $title;
     private string $content;
 
-
-    public function __construct(DocumentTitle $title, string $content)
+    public static function create(DocumentTitle $title, string $content): Document
     {
-        parent::__construct([$title, $content]);
+        $document = new Document();
+        $document->title = $title;
+        $document->content = $content;
 
-        $this->title = $title;
-        $this->content = $content;
+        return $document;
     }
 }
