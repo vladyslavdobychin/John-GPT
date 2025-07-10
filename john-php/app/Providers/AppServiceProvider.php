@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Document;
 use App\Repositories\DocumentRepository;
 use App\Repositories\DocumentRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Connection;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,9 +16,6 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(DocumentRepositoryInterface::class, DocumentRepository::class);
-        $this->app->bind(DocumentRepository::class, function ($app) {
-            return new DocumentRepository(new Document());
-        });
     }
 
     /**

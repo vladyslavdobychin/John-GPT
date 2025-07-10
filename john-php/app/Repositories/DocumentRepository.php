@@ -2,33 +2,30 @@
 
 namespace App\Repositories;
 
+use App\Domain\Documents\DocumentTitle;
 use App\Models\Document;
-use \Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Connection;
+use Illuminate\Database\Eloquent\Collection;
 
 class DocumentRepository implements DocumentRepositoryInterface
 {
-    public function __construct(private Document $model)
+    public function __construct(private Connection $db)
     {
     }
 
     public function findAll(): Collection
     {
-        return $this->model->newModelQuery()->get();
+        return Document::all();
     }
 
     public function findById(int $id): ?Document
     {
-        return $this->model->newModelQuery()->find($id);
-    }
-
-    public function createDocument(array $data): Document
-    {
-        return $this->model->create($data);
+        return Document::find($id);
     }
 
     public function updateDocument(int $id, array $data): Document
     {
-        $document = $this->model->newModelQuery()->findOrFail($id);
+        $document = Document::findOrFail($id);
         $document->update($data);
 
         return $document;
@@ -36,7 +33,20 @@ class DocumentRepository implements DocumentRepositoryInterface
 
     public function deleteDocument(int $id): void
     {
-        $document = $this->model->newModelQuery()->findOrFail($id);
+        $document = Document::findOrFail($id);
         $document->delete();
+    }
+
+    public function documentTitleExists(DocumentTitle $title): bool
+    {
+        return $this->db->table('documents')
+            ->where('title', $title->getValue())
+            ->exists();
+    }
+
+    public function save(Document $document): Document
+    {
+        $document->save();
+        return $document;
     }
 }
