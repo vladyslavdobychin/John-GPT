@@ -1,0 +1,92 @@
+// Common mixins and base styles
+@mixin baseInput {
+  font-family: "Roboto", sans-serif;
+  border-radius: 4px;
+  padding: 0.5rem;
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  background: white;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+@mixin baseDisplay {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  width: 100%;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &.updating {
+    opacity: 0.7;
+    cursor: not-allowed;
+    
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+@mixin textFormatting {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.container {
+  height: 100%;
+}
+
+// Title styles
+.titleInput {
+  @include baseInput;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.titleDisplay {
+  @include baseDisplay;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+}
+
+// Content styles
+.contentDisplay {
+  @include baseDisplay;
+  @include textFormatting;
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 200px;
+}
+
+.contentInput {
+  @include baseInput;
+  @include textFormatting;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: none;
+}
+
+// Utility classes
+.placeholder {
+  color: #999;
+  font-style: italic;
+} 
