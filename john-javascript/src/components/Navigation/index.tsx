@@ -1,31 +1,27 @@
-import React, {useCallback} from "react";
-import {useState, useEffect, useRef} from "react";
+import React, { useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import classes from "./navigation.module.scss";
-import {DocumentList} from "../DocumentList";
-import axios from "axios";
-import { Box } from "@radix-ui/themes";
-import { Document } from "../../types";
+import { DocumentList } from "../DocumentList";
+import { Box, Flex, Spinner } from "@radix-ui/themes";
+import { useDocumentsQuery } from "../../hooks/useDocuments";
 
-export const Navigation: React.FC = () => {
+interface NavigationProps {
+  selectedDocumentId: string | null;
+  setSelectedDocumentId: (id: string | null) => void;
+}
+
+export const Navigation: React.FC<NavigationProps> = ({ selectedDocumentId, setSelectedDocumentId }) => {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
-    const [notes, setNotes] = useState<Document[]>([]);
+    const { data: documents = [], isLoading: loading, error: fetchError } = useDocumentsQuery();
 
-    const fetchNotes = async () => {
-        try {
-            const response = await axios.get<Document[]>("/api/documents");
-            if (Array.isArray(response.data)) {
-                setNotes(response.data);
-            }
-        } catch (error) {
-            console.error("Failed to fetch notes:", error);
-        }
+    // Convert React Query error to string for backward compatibility
+    const error = fetchError ? fetchError.message : null;
+
+    const handleDocumentClick = (documentId: string) => {
+        setSelectedDocumentId(documentId);
     };
-
-    useEffect(() => {
-        fetchNotes();
-    }, []);
 
     const startResizing = useCallback(() => {
         setIsResizing(true);
@@ -60,13 +56,30 @@ export const Navigation: React.FC = () => {
         <div
             ref={sidebarRef}
             className={classes.navigation}
-            style={{width: sidebarWidth}}
-            onMouseDown={(e) => e.preventDefault()}
+            style={{ width: sidebarWidth }}
         >
             <Box className={classes.content}>
-                <DocumentList documents={notes}/>
+                {loading && (
+                    <Flex justify="center" align="center">
+                        <Spinner size="3" />
+                    </Flex>
+                )}
+                {error && <div>Error: {error}</div>}
+                {!loading && !error && (
+                    <DocumentList 
+                        documents={documents}
+                        selectedDocumentId={selectedDocumentId}
+                        onDocumentClick={handleDocumentClick}
+                    />
+                )}
             </Box>
-            <Box className={classes.resizer} onMouseDown={startResizing}/>
+            <Box 
+                className={classes.resizer} 
+                onMouseDown={(e) => {
+                    e.preventDefault(); // Only prevent default on the resizer
+                    startResizing();
+                }}
+            />
         </div>
     );
 };
