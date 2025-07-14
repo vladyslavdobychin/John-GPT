@@ -36,7 +36,8 @@ class DocumentRepository implements DocumentRepositoryInterface
 
     public function deleteDocument(int $id): void
     {
-        $document = $this->model->newModelQuery()->findOrFail($id);
+        $document = $this->model->newModelQuery();
+        $document->findOrFail($id);
         $document->delete();
     }
 }
