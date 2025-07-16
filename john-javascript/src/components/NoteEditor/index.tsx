@@ -3,9 +3,9 @@ import { useUpdateDocumentQuery } from '../../hooks/useDocuments';
 import { Document } from '../../types';
 import { Box, Callout } from '@radix-ui/themes';
 import classes from './index.module.scss';
-import { SaveStatusIndicator } from './SaveStatusIndicator';
-import { EditableTitle } from './EditableTitle';
-import { EditableContent } from './EditableContent';
+import { SaveStatusIndicator } from './components/SaveStatusIndicator';
+import { EditableTitle } from './components/EditableTitle';
+import { EditableContent } from './components/EditableContent';
 
 interface NoteEditorProps {
   document: Document;

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Box } from '@radix-ui/themes';
-import { Document } from '../../types';
-import classes from './index.module.scss';
+import { Document } from '../../../types';
+import classes from '../index.module.scss';
 
 interface EditableTitleProps {
   document: Document;

@@ -1,13 +1,11 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useDocumentsQuery } from '../../hooks/useDocuments';
 import { NoteEditor } from '../NoteEditor';
 import { Box } from '@radix-ui/themes';
 
-interface MainContentProps {
-  selectedDocumentId: string | null;
-}
-
-export const MainContent: React.FC<MainContentProps> = ({ selectedDocumentId }) => {
+export const MainContent: React.FC = () => {
+  const { id: selectedDocumentId } = useParams<{ id: string }>();
   const { data: documents = [], isLoading: loading, error: fetchError } = useDocumentsQuery();
 
   // Convert React Query error to string for backward compatibility
@@ -45,7 +43,8 @@ export const MainContent: React.FC<MainContentProps> = ({ selectedDocumentId }) 
     );
   }
 
-  const selectedDocument = documents.find(doc => doc.id === selectedDocumentId);
+  const selectedDocument = documents.find(doc => String(doc.id) === selectedDocumentId);
+
 
   if (!selectedDocument) {
     return (

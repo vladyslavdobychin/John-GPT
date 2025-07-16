@@ -1,13 +1,21 @@
 .documentListItem {
   cursor: pointer;
-  padding-inline: 5px;
-  padding-block: 5px;
+  padding: 5px;
   border-radius: var(--radius-3);
   transition: background-color 0.1s;
+
+  .deleteButton {
+    opacity: 0;
+    transition: opacity 0.1s;
+  }
 
   &:hover {
     background-color: var(--gray-5);
     color: var(--gray-11);
+
+    .deleteButton {
+      opacity: 1;
+    }
   }
 
   &.selected {
@@ -17,6 +25,12 @@
     &:hover {
       background-color: var(--accent-5);
       color: var(--accent-11);
+
     }
   }
 }
+
+.deleteButton {
+  cursor: pointer !important;
+}
+
