@@ -6,14 +6,17 @@ import { Theme } from "@radix-ui/themes";
 import "./styles/global.css";
 import "./styles/theme-config.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-  <React.StrictMode>
-    <Theme accentColor="violet">
-      <App />
-    </Theme>
-  </React.StrictMode>
+    <BrowserRouter>
+      <React.StrictMode>
+        <Theme accentColor="violet">
+          <App />
+        </Theme>
+      </React.StrictMode>
+    </BrowserRouter>
   </QueryClientProvider>
 );

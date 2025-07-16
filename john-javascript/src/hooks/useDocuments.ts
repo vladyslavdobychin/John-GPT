@@ -24,3 +24,16 @@ export const useUpdateDocumentQuery = () => {
     },
   });
 }; 
+
+// Hook for deleting a document
+export const useDeleteDocumentQuery = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: documentsApi.deleteDocument,
+    onSuccess: () => {
+      // Invalidate the documents query to fetch the latest data
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+    },
+  });
+};

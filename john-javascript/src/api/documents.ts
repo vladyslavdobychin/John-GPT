@@ -14,7 +14,12 @@ const updateDocument = async (document: Partial<Document>): Promise<Document> =>
   return response.data;
 }
 
+const deleteDocument = async (id: string): Promise<void> => {
+  await axios.delete(`/api/documents/${id}`);
+}
+
 export const documentsApi = {
   getAllDocuments,
   updateDocument,
+  deleteDocument,
 }

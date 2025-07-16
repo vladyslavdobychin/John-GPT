@@ -1,16 +1,13 @@
 import React, { useCallback } from "react";
 import { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import classes from "./navigation.module.scss";
 import { DocumentList } from "../DocumentList";
 import { Box, Flex, Spinner } from "@radix-ui/themes";
 import { useDocumentsQuery } from "../../hooks/useDocuments";
 
-interface NavigationProps {
-  selectedDocumentId: string | null;
-  setSelectedDocumentId: (id: string | null) => void;
-}
-
-export const Navigation: React.FC<NavigationProps> = ({ selectedDocumentId, setSelectedDocumentId }) => {
+export const Navigation: React.FC = () => {
+    const { id: selectedDocumentId } = useParams<{ id: string }>();
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [isResizing, setIsResizing] = useState(false);
     const [sidebarWidth, setSidebarWidth] = useState(250);
@@ -18,10 +15,6 @@ export const Navigation: React.FC<NavigationProps> = ({ selectedDocumentId, setS
 
     // Convert React Query error to string for backward compatibility
     const error = fetchError ? fetchError.message : null;
-
-    const handleDocumentClick = (documentId: string) => {
-        setSelectedDocumentId(documentId);
-    };
 
     const startResizing = useCallback(() => {
         setIsResizing(true);
@@ -68,8 +61,7 @@ export const Navigation: React.FC<NavigationProps> = ({ selectedDocumentId, setS
                 {!loading && !error && (
                     <DocumentList 
                         documents={documents}
-                        selectedDocumentId={selectedDocumentId}
-                        onDocumentClick={handleDocumentClick}
+                        selectedDocumentId={selectedDocumentId || null}
                     />
                 )}
             </Box>
