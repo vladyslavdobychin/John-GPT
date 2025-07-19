@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateDocumentRequest extends FormRequest
 {
@@ -24,7 +23,6 @@ class UpdateDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required', Rule::exists('documents', 'id')],
             'title' => [
                 'required',
                 'string',
@@ -32,10 +30,5 @@ class UpdateDocumentRequest extends FormRequest
             ],
             'content' => ['nullable', 'string']
         ];
-    }
-
-    protected function prepareForValidation(): void
-    {
-        $this->merge(['id' => $this->route('id')]);
     }
 }
