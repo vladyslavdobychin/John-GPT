@@ -18,6 +18,10 @@ class UpdateDocumentAction extends Controller
         $data = $request->validated();
         $document = $this->repository->updateDocument($id, $data);
 
+        if (!$document) {
+            return new JsonResponse("Document with id {$id} not found", 404);
+        }
+
         return new JsonResponse(new DocumentResource($document));
     }
 }

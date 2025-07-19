@@ -26,9 +26,14 @@ class DocumentRepository implements DocumentRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function updateDocument(int $id, array $data): Document
+    public function updateDocument(int $id, array $data): ?Document
     {
-        $document = $this->model->newModelQuery()->findOrFail($id);
+        $document = $this->findById($id);
+
+        if (!$document) {
+            return null;
+        }
+
         $document->update($data);
 
         return $document;
@@ -36,8 +41,7 @@ class DocumentRepository implements DocumentRepositoryInterface
 
     public function deleteDocument(int $id): void
     {
-        $document = $this->model->newModelQuery();
-        $document->findOrFail($id);
+        $document = $this->findById($id);
         $document->delete();
     }
 }

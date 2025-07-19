@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CreateDocumentRequest extends FormRequest
 {
@@ -24,7 +23,7 @@ class CreateDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255', Rule::unique('documents', 'title')],
+            'title' => ['required', 'string', 'max:255'],
             'content' => ['nullable', 'string']
         ];
     }
