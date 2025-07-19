@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Document;
 use \Illuminate\Database\Eloquent\Collection;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class DocumentRepository implements DocumentRepositoryInterface
 {
