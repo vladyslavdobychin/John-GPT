@@ -26,11 +26,9 @@ class UpdateDocumentRequest extends FormRequest
         return [
             'id' => ['required', Rule::exists('documents', 'id')],
             'title' => [
-                'sometimes',
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('documents', 'title')->ignore($this->route('id'))
             ],
             'content' => ['nullable', 'string']
         ];
