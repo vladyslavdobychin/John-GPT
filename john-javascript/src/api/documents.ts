@@ -18,8 +18,14 @@ const deleteDocument = async (id: string): Promise<void> => {
   await axios.delete(`/api/documents/${id}`);
 }
 
+const createDocument = async (document: Omit<Document, 'id'>): Promise<Document> => {
+  const response = await axios.post('/api/documents', document);
+  return response.data;
+}
+
 export const documentsApi = {
   getAllDocuments,
   updateDocument,
   deleteDocument,
+  createDocument,
 }

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import classes from "./navigation.module.scss";
 import { DocumentList } from "../DocumentList";
+import { CreateNoteButton } from "./CreateNoteButton";
 import { Box, Flex, Spinner } from "@radix-ui/themes";
 import { useDocumentsQuery } from "../../hooks/useDocuments";
 
@@ -52,6 +53,10 @@ export const Navigation: React.FC = () => {
             style={{ width: sidebarWidth }}
         >
             <Box className={classes.content}>
+                <Box style={{ marginBottom: '10px' }}>
+                    <CreateNoteButton />
+                </Box>
+                
                 {loading && (
                     <Flex justify="center" align="center">
                         <Spinner size="3" />

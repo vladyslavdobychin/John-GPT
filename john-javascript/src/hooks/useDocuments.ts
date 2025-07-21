@@ -37,3 +37,18 @@ export const useDeleteDocumentQuery = () => {
     },
   });
 };
+
+// Hook for creating a document
+export const useCreateDocumentQuery = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: documentsApi.createDocument,
+    onSuccess: (newDocument) => {
+      // Add the new document to the cache
+      queryClient.setQueryData(['documents'], (oldDocuments: Document[]) =>
+        oldDocuments ? [newDocument, ...oldDocuments] : [newDocument]
+      );
+    },
+  });
+};
